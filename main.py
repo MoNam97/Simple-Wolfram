@@ -3,12 +3,14 @@ from tabulate import tabulate
 state = 'MAIN'
 calc_value = 0
 
+# [ ] TODO: Debug the UI concerning empty lines
+# [ ] TODO: make the input taking format consistent
 
 def show_main_menu():
     table = []
     headers = ["ID", "Command"]
     table.append(["1"] + ["Calculation"])
-    table.append([""] + [""])
+    # table.append([""] + [""])
     table.append(["0"] + ["Exit"])
     print()
     print(tabulate(table, headers=headers))
@@ -92,9 +94,12 @@ def show_calc_menu():
     table.append(["4"] + ["DIVIDE"])
     table.append(["5"] + ["POWER"])
     table.append(["6"] + ["ROOT"])
-    table.append([""] + [""])
-    table.append(["R"] + ["RESET"])
+    # table.append([""] + [""])
+    # table.append(["R"] + ["RESET"])
     table.append(["0"] + ["BACK"])
+    print("===================================")
+    print("\tCalculation Menu")
+    print()
     print("Current Value:", calc_value)
     print(tabulate(table, headers=headers))
 
@@ -157,8 +162,7 @@ def handle_input_calc(x):
         global state
         state = 'MAIN'
     elif x == '1':
-        nums = get_numbers()
-        add(nums)
+        add_handler()
     elif x == '2':
         nums = get_numbers()
         subtract(nums)
