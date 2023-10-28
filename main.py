@@ -34,11 +34,37 @@ def add_handler():
     global calculation_value
     calculation_value = add_func(calculation_value, list_of_numbers)
 
+
+def devide_func(x: int, y: list):
+    for number in y:
+        x /= number
+    return round(x, 8)
+# rounded because of floating point error in binary system. i.e. 12/5/3 = 0.7999999999999999
+
+def devide_handler():
+    print("Enter the list of numbers separated by ',' that current value will be divided by:")
+    list_of_numbers = input()
+    list_of_numbers = list_of_numbers.replace(" ", "")
+    list_of_numbers = list_of_numbers.split(",")
+    for i in range(len(list_of_numbers)):
+        if list_of_numbers[i].isdigit():
+            list_of_numbers[i] = int(list_of_numbers[i])
+        elif list_of_numbers[i].replace(".", "", 1).isdigit():
+            list_of_numbers[i] = float(list_of_numbers[i])
+        else:
+            print("Invalid input")
+            return
+    print()
+    global calculation_value
+    calculation_value = devide_func(calculation_value, list_of_numbers)
+
+
 def show_calc_menu():
     global calculation_value
     table = []
     headers = ["ID", "Command"]
     table.append(["1"] + ["Add"])
+    table.append(["4"] + ["Devide"])
     # table.append("              ")
     table.append(["0"] + ["BACK"])
     print("===============================")
@@ -70,6 +96,8 @@ def handle_input_calc(x):
         state = 'MAIN'
     elif x == '1':
         add_handler()
+    elif x == '4':
+        devide_handler()
         
 
 
