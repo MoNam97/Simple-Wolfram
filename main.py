@@ -12,14 +12,7 @@ def show_main_menu():
     print(tabulate(table, headers=headers))
 
 
-def add_func(x: int, y: list):
-    for number in y:
-        x += number
-    return x
-
-def add_handler():
-    print("Enter the list of numbers separated by ',' to be added to the current value:")
-    list_of_numbers = input()
+def calc_input_parser(list_of_numbers):
     list_of_numbers = list_of_numbers.replace(" ", "")
     list_of_numbers = list_of_numbers.split(",")
     for i in range(len(list_of_numbers)):
@@ -30,6 +23,17 @@ def add_handler():
         else:
             print("Invalid input")
             return
+    return list_of_numbers
+
+
+def add_func(x: int, y: list):
+    for number in y:
+        x += number
+    return x
+
+def add_handler():
+    print("Enter the list of numbers separated by ',' to be added to the current value:")
+    list_of_numbers = calc_input_parser(input())
     print()
     global calculation_value
     calculation_value = add_func(calculation_value, list_of_numbers)
@@ -43,17 +47,7 @@ def devide_func(x: int, y: list):
 
 def devide_handler():
     print("Enter the list of numbers separated by ',' that current value will be divided by:")
-    list_of_numbers = input()
-    list_of_numbers = list_of_numbers.replace(" ", "")
-    list_of_numbers = list_of_numbers.split(",")
-    for i in range(len(list_of_numbers)):
-        if list_of_numbers[i].isdigit():
-            list_of_numbers[i] = int(list_of_numbers[i])
-        elif list_of_numbers[i].replace(".", "", 1).isdigit():
-            list_of_numbers[i] = float(list_of_numbers[i])
-        else:
-            print("Invalid input")
-            return
+    list_of_numbers = calc_input_parser(input())
     print()
     global calculation_value
     calculation_value = devide_func(calculation_value, list_of_numbers)
@@ -66,20 +60,24 @@ def power_func(x: int, y: list):
 
 def power_handler():
     print("Enter the list of numbers separated by ',' that current value will be powered by:")
-    list_of_numbers = input()
-    list_of_numbers = list_of_numbers.replace(" ", "")
-    list_of_numbers = list_of_numbers.split(",")
-    for i in range(len(list_of_numbers)):
-        if list_of_numbers[i].isdigit():
-            list_of_numbers[i] = int(list_of_numbers[i])
-        elif list_of_numbers[i].replace(".", "", 1).isdigit():
-            list_of_numbers[i] = float(list_of_numbers[i])
-        else:
-            print("Invalid input")
-            return
+    list_of_numbers = calc_input_parser(input())
     print()
     global calculation_value
     calculation_value = power_func(calculation_value, list_of_numbers)
+
+
+def root_func(x: int, y: list):
+    for number in y:
+        x **= 1/number
+    return x
+    # return round(x, 8)
+
+def root_handler():
+    print("Enter the list of numbers separated by ',' that current value will be rooted by:")
+    list_of_numbers = calc_input_parser(input())
+    print()
+    global calculation_value
+    calculation_value = root_func(calculation_value, list_of_numbers)
 
 
 def show_calc_menu():
@@ -89,6 +87,7 @@ def show_calc_menu():
     table.append(["1"] + ["Add"])
     table.append(["4"] + ["Devide"])
     table.append(["5"] + ["Power"])
+    table.append(["6"] + ["Root"])
     # table.append("              ")
     table.append(["0"] + ["BACK"])
     print("===============================")
@@ -124,6 +123,8 @@ def handle_input_calc(x):
         devide_handler()
     elif x == '5':
         power_handler()
+    elif x == '6':
+        root_handler()
         
 
 
