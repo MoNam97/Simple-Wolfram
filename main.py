@@ -18,8 +18,9 @@ def show_calc_menu():
     table = []
     headers = ["ID", "Command"]
     table.append(["1"] + ["ADD"])
-    table.append(["2"] + ["MULTIPLY"])
-    table.append(["3"] + ["DIVIDE"])
+    table.append(["2"] + ["SUBTRACT"])
+    table.append(["3"] + ["MULTIPLY"])
+    table.append(["4"] + ["DIVIDE"])
     table.append([""] + [""])
     table.append(["R"] + ["RESET"])
     table.append(["0"] + ["BACK"])
@@ -69,6 +70,12 @@ def divide(nums):
         calc_value /= num
 
 
+def subtract(nums):
+    for num in nums:
+        global calc_value
+        calc_value -= num
+
+
 def reset():
     global calc_value
     calc_value = 0.0
@@ -83,8 +90,11 @@ def handle_input_calc(x):
         add(nums)
     elif x == '2':
         nums = get_numbers()
-        multiply(nums)
+        subtract(nums)
     elif x == '3':
+        nums = get_numbers()
+        multiply(nums)
+    elif x == '4':
         nums = get_numbers()
         divide(nums)
     elif x == 'R':
