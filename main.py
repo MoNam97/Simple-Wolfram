@@ -17,7 +17,7 @@ def show_calc_menu():
     table = []
     headers = ["ID", "Command"]
     table.append(["1"] + ["ADD"])
-    #table.append(["2"] + ["MULTIPLY"])
+    table.append(["2"] + ["MULTIPLY"])
     #table.append(["3"] + ["DIVIDE"])
 
     table.append(["0"] + ["BACK"])
@@ -55,6 +55,12 @@ def add(nums):
         calc_value += num
 
 
+def multiply(nums):
+    for num in nums:
+        global calc_value
+        calc_value *= num
+
+
 def handle_input_calc(x):
     if x == '0':
         global state
@@ -62,6 +68,9 @@ def handle_input_calc(x):
     elif x == '1':
         nums = get_numbers()
         add(nums)
+    elif x == '2':
+        nums = get_numbers()
+        multiply(nums)
 
 
 def handle_input(x):
