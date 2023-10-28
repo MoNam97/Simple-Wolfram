@@ -1,12 +1,14 @@
 from tabulate import tabulate
 
 state = 'MAIN'
-calculation_value = 0
+calc_value = 0
+
 
 def show_main_menu():
     table = []
     headers = ["ID", "Command"]
     table.append(["1"] + ["Calculation"])
+    table.append([""] + [""])
     table.append(["0"] + ["Exit"])
     print()
     print(tabulate(table, headers=headers))
@@ -84,33 +86,70 @@ def show_calc_menu():
     global calculation_value
     table = []
     headers = ["ID", "Command"]
-    table.append(["1"] + ["Add"])
-    table.append(["4"] + ["Devide"])
-    table.append(["5"] + ["Power"])
-    table.append(["6"] + ["Root"])
-    # table.append("              ")
+    table.append(["1"] + ["ADD"])
+    table.append(["2"] + ["SUBTRACT"])
+    table.append(["3"] + ["MULTIPLY"])
+    table.append(["4"] + ["DIVIDE"])
+    table.append(["5"] + ["POWER"])
+    table.append(["6"] + ["ROOT"])
+    table.append([""] + [""])
+    table.append(["R"] + ["RESET"])
     table.append(["0"] + ["BACK"])
-    print("===============================")
-    print("\tCALCULATION MENU")
-    print()
-    print("Current Value:", calculation_value)
-    print()
+    print("Current Value:", calc_value)
     print(tabulate(table, headers=headers))
 
 
 def show_menu():
     if state == 'MAIN':
         show_main_menu()
-    if state == 'CALCULATION':
+    elif state == 'CALCULATION':
         show_calc_menu()
 
 
 def handle_input_main(x):
     if x == '0':
         exit()
-    if x == '1':
+    elif x == '1':
         global state
         state = 'CALCULATION'
+
+
+def get_numbers():
+    nums = []
+    next_num = input()
+    while next_num != '':
+        nums.append(float(next_num))
+        next_num = input()
+    return nums
+
+
+def add(nums):
+    for num in nums:
+        global calc_value
+        calc_value += num
+
+
+def multiply(nums):
+    for num in nums:
+        global calc_value
+        calc_value *= num
+
+
+def divide(nums):
+    for num in nums:
+        global calc_value
+        calc_value /= num
+
+
+def subtract(nums):
+    for num in nums:
+        global calc_value
+        calc_value -= num
+
+
+def reset():
+    global calc_value
+    calc_value = 0.0
 
 
 def handle_input_calc(x):
@@ -118,14 +157,22 @@ def handle_input_calc(x):
         global state
         state = 'MAIN'
     elif x == '1':
-        add_handler()
+        nums = get_numbers()
+        add(nums)
+    elif x == '2':
+        nums = get_numbers()
+        subtract(nums)
+    elif x == '3':
+        nums = get_numbers()
+        multiply(nums)
     elif x == '4':
         devide_handler()
     elif x == '5':
         power_handler()
     elif x == '6':
         root_handler()
-        
+    elif x == 'R':
+        reset()
 
 
 def handle_input(x):
