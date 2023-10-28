@@ -8,6 +8,7 @@ def show_main_menu():
     table = []
     headers = ["ID", "Command"]
     table.append(["1"] + ["Calculation"])
+    table.append([""] + [""])
     table.append(["0"] + ["Exit"])
     print()
     print(tabulate(table, headers=headers))
@@ -19,7 +20,8 @@ def show_calc_menu():
     table.append(["1"] + ["ADD"])
     table.append(["2"] + ["MULTIPLY"])
     table.append(["3"] + ["DIVIDE"])
-
+    table.append([""] + [""])
+    table.append(["R"] + ["RESET"])
     table.append(["0"] + ["BACK"])
     print("Current Value:", calc_value)
     print(tabulate(table, headers=headers))
@@ -67,6 +69,11 @@ def divide(nums):
         calc_value /= num
 
 
+def reset():
+    global calc_value
+    calc_value = 0.0
+
+
 def handle_input_calc(x):
     if x == '0':
         global state
@@ -80,6 +87,8 @@ def handle_input_calc(x):
     elif x == '3':
         nums = get_numbers()
         divide(nums)
+    elif x == 'R':
+        reset()
 
 
 def handle_input(x):
