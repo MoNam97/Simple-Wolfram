@@ -13,9 +13,14 @@ def show_main_menu():
 
 
 def show_calc_menu():
+    calculation_value = 0
     table = []
     headers = ["ID", "Command"]
     table.append(["0"] + ["BACK"])
+    print("===============================")
+    print("\tCALCULATION MENU")
+    print()
+    print("Current Value: ", calculation_value)
     print()
     print(tabulate(table, headers=headers))
 
