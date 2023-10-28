@@ -18,7 +18,7 @@ def show_calc_menu():
     headers = ["ID", "Command"]
     table.append(["1"] + ["ADD"])
     table.append(["2"] + ["MULTIPLY"])
-    #table.append(["3"] + ["DIVIDE"])
+    table.append(["3"] + ["DIVIDE"])
 
     table.append(["0"] + ["BACK"])
     print("Current Value:", calc_value)
@@ -61,6 +61,12 @@ def multiply(nums):
         calc_value *= num
 
 
+def divide(nums):
+    for num in nums:
+        global calc_value
+        calc_value /= num
+
+
 def handle_input_calc(x):
     if x == '0':
         global state
@@ -71,6 +77,9 @@ def handle_input_calc(x):
     elif x == '2':
         nums = get_numbers()
         multiply(nums)
+    elif x == '3':
+        nums = get_numbers()
+        divide(nums)
 
 
 def handle_input(x):
