@@ -14,7 +14,32 @@ def show_main_menu():
     print(tabulate(table, headers=headers))
 
 
+def add_func(x: int, y: list):
+    for number in y:
+        x += number
+    return x
+
+
+def add_handler():
+    print("Enter the list of numbers separated by ',' to be added to the current value:")
+    list_of_numbers = input()
+    list_of_numbers = list_of_numbers.replace(" ", "")
+    list_of_numbers = list_of_numbers.split(",")
+    for i in range(len(list_of_numbers)):
+        if list_of_numbers[i].isdigit():
+            list_of_numbers[i] = int(list_of_numbers[i])
+        elif list_of_numbers[i].replace(".", "", 1).isdigit():
+            list_of_numbers[i] = float(list_of_numbers[i])
+        else:
+            print("Invalid input")
+            return
+    print()
+    global calculation_value
+    calculation_value = add_func(calculation_value, list_of_numbers)
+
+
 def show_calc_menu():
+    global calculation_value
     table = []
     headers = ["ID", "Command"]
     table.append(["1"] + ["ADD"])
