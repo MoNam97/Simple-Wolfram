@@ -145,8 +145,8 @@ def handle_input_matrix(x):
         print("===================================")
         print("\t  Main Menu:")
     elif x == '1':
-        matrix_list =  mo.get_matrices()
-        mo.mat_add()
+        matrix_list =  mo.get_matrices(False)
+        mo.mat_add(matrix_list)
 
 
 def handle_input(x):
