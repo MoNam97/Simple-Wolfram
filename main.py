@@ -11,13 +11,17 @@ def show_main_menu():
     table = []
     headers = ["ID", "Command"]
     table.append(["1"] + ["Calculation"])
+    table.append(["3"] + ["Polynomial Computation"])
+
     # table.append([""] + [""])
     table.append(["0"] + ["Exit"])
     print()
     print(tabulate(table, headers=headers))
 
+
 def print_error(message):
     print("ERROR:", message)
+
 
 def power(x: int, y: list):
     for number in y:
@@ -50,19 +54,36 @@ def show_calc_menu():
     print(tabulate(table, headers=headers))
 
 
+def show_poly_menu():
+    table = []
+    headers = ["ID", "Command"]
+    table.append(["1"] + [""])
+    table.append([""] + [""])
+    table.append(["0"] + ["BACK"])
+    print("===================================")
+    print("Polynomial Menu:")
+    print()
+    print("Current Expression:")
+    print(tabulate(table, headers=headers))
+
+
 def show_menu():
     if state == 'MAIN':
         show_main_menu()
     elif state == 'CALCULATION':
         show_calc_menu()
+    elif state == 'POLYNOMIAL':
+        show_poly_menu()
 
 
 def handle_input_main(x):
+    global state
     if x == '0':
         exit()
     elif x == '1':
-        global state
         state = 'CALCULATION'
+    elif x == '3':
+        state = 'POLYNOMIAL'
 
 
 def get_numbers():
@@ -133,11 +154,20 @@ def handle_input_calc(x):
         reset()
 
 
+def handle_input_poly(x):
+    global calc_value
+    if x == '0':
+        global state
+        state = 'MAIN'
+
+
 def handle_input(x):
     if state == 'MAIN':
         handle_input_main(x)
     elif state == 'CALCULATION':
         handle_input_calc(x)
+    elif state == 'POLYNOMIAL':
+        handle_input_poly(x)
 
 
 while True:
