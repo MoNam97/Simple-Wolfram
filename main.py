@@ -56,6 +56,12 @@ def show_calc_menu():
     print(tabulate(table, headers=headers))
 
 
+def print_expr():
+    print("Current Expression:\t", end='')
+    for w in expression:
+        print(w, end=' ')
+
+
 def show_poly_menu():
     table = []
     headers = ["ID", "Command"]
@@ -65,7 +71,8 @@ def show_poly_menu():
     print("===================================")
     print("Polynomial Menu:")
     print()
-    print("Current Expression:", expression)
+    print_expr()
+    print()
     print(tabulate(table, headers=headers))
 
 
@@ -169,11 +176,12 @@ def validate_expression(x):
     for i in range(len(temp_lst)):
         w = temp_lst[i]
         if s == 0:
-            match = re.fullmatch(num_regex, w)
-            if match is None:
-                print_error("Invalid Input!")
-                return None
-            temp_lst[i] = float(match.group(0))
+            if w != 'x':
+                match = re.fullmatch(num_regex, w)
+                if match is None:
+                    print_error("Invalid Input!")
+                    return None
+                temp_lst[i] = float(match.group(0))
             s = 1
         elif s == 1:
             match = re.fullmatch(operator_regex, w)
@@ -184,7 +192,7 @@ def validate_expression(x):
         else:
             print_error('Invalid Input!')
             return None
-    print(temp_lst)
+    return temp_lst
 
 
 def handle_input_poly(x):
@@ -193,7 +201,9 @@ def handle_input_poly(x):
         state = 'MAIN'
     if x == '1':
         temp_exp = input()
-        validate_expression(temp_exp)
+        temp_exp = validate_expression(temp_exp)
+        if temp_exp is not None:
+            expression = temp_exp
 
 
 def handle_input(x):
