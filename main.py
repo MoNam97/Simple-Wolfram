@@ -5,13 +5,14 @@ state = 'MAIN'
 calc_value = 0
 
 # [ ] TODO: Debug the UI concerning empty lines
-# [ ] TODO: make the input taking format consistent
+# [X] TODO: make the input taking format consistent
 
 
 def show_main_menu():
     table = []
     headers = ["ID", "Command"]
     table.append(["1"] + ["Calculation"])
+    table.append(["2"] + ["Matrix Operations"])
     # table.append([""] + [""])
     table.append(["0"] + ["Exit"])
     print()
@@ -56,14 +57,18 @@ def show_menu():
         show_main_menu()
     elif state == 'CALCULATION':
         show_calc_menu()
+    elif state == 'MATRIX':
+        mo.show_matrix_menu()
 
 
 def handle_input_main(x):
+    global state
     if x == '0':
         exit()
     elif x == '1':
-        global state
         state = 'CALCULATION'
+    elif x == '2':
+        state = 'MATRIX'
 
 
 def get_numbers():
@@ -133,12 +138,24 @@ def handle_input_calc(x):
     elif x == 'R':
         reset()
 
+def handle_input_matrix(x):
+    if x == '0':
+        global state
+        state = 'MAIN'
+        print("===================================")
+        print("\t  Main Menu:")
+    elif x == '1':
+        matrix_list =  mo.get_matrices()
+        mo.mat_add()
+
 
 def handle_input(x):
     if state == 'MAIN':
         handle_input_main(x)
     elif state == 'CALCULATION':
         handle_input_calc(x)
+    elif state == 'MATRIX':
+        handle_input_matrix(x)
 
 
 while True:
