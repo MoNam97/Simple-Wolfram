@@ -1,6 +1,8 @@
 from tabulate import tabulate
 import re
 import copy
+import matplotlib.pyplot as plt
+import numpy as np
 
 state = 'MAIN'
 calc_value = 0
@@ -68,6 +70,7 @@ def show_poly_menu():
     headers = ["ID", "Command"]
     table.append(["1"] + ["Enter Expression"])
     table.append(["2"] + ["Compute at Specific Point"])
+    table.append(["3"] + ["Plot"])
     table.append(["0"] + ["BACK"])
     print("===================================")
     print("Polynomial Menu:")
@@ -254,6 +257,14 @@ def calculate_expr(x):
     return temp_list[0]
 
 
+def plot(x1, x2):
+    y = []
+    for t in np.arange(x1, x2, 0.1):
+        y.append(calculate_expr(t))
+    plt.plot(np.arange(x1, x2, 0.1).tolist(), y)
+    plt.show()
+
+
 def handle_input_poly(x):
     global calc_value, state, expression
     if x == '0':
@@ -266,6 +277,10 @@ def handle_input_poly(x):
     if x == '2':
         num = float(input())
         print("Value:", calculate_expr(num))
+    if x == '3':
+        num_1 = float(input())
+        num_2 = float(input())
+        plot(num_1, num_2)
 
 
 def handle_input(x):
