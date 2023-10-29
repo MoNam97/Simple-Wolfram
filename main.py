@@ -1,5 +1,6 @@
 from tabulate import tabulate
 import re
+import copy
 
 state = 'MAIN'
 calc_value = 0
@@ -200,27 +201,57 @@ def validate_expression(x):
 
 
 def calculate_expr(x):
-    temp_list = []
-    for w in expression:
-        if w == 'x':
-            temp_list.append(x)
-        else:
-            temp_list.append(w)
-    s = temp_list[0]
-    for i in range(1, len(temp_list), 2):
-        w = temp_list[i]
-        if w == '+':
-            s += temp_list[i+1]
-        elif w == '-':
-            s -= temp_list[i + 1]
-        elif w == '/':
-            s /= temp_list[i + 1]
-        elif w == '*':
-            s *= temp_list[i + 1]
-        elif w == '^':
-            s **= temp_list[i+1]
 
-    return s
+    temp_list = copy.deepcopy(expression)
+
+    for i in range(len(expression)):
+        w = expression[i]
+        if w == 'x':
+            temp_list[i] = x
+    i = 1
+    while i < len(temp_list):
+        if temp_list[i] == '^':
+            a = temp_list[i-1]
+            b = temp_list[i+1]
+            c = a**b
+            temp_list.pop(i-1)
+            temp_list.pop(i-1)
+            temp_list.pop(i-1)
+            temp_list.insert(i-1, c)
+            i -= 1
+        i += 1
+    i = 0
+    while i < len(temp_list):
+        if temp_list[i] == '/' or temp_list[i] == '*':
+
+            a = temp_list[i - 1]
+            b = temp_list[i + 1]
+            if temp_list[i] == '/':
+                c = a / b
+            else:
+                c = a * b
+            temp_list.pop(i - 1)
+            temp_list.pop(i - 1)
+            temp_list.pop(i - 1)
+            temp_list.insert(i - 1, c)
+            i -= 1
+        i += 1
+    i = 0
+    while i < len(temp_list):
+        if temp_list[i] == '+' or temp_list[i] == '-':
+            a = temp_list[i-1]
+            b = temp_list[i+1]
+            if temp_list[i] == '+':
+                c = a+b
+            else:
+                c = a-b
+            temp_list.pop(i - 1)
+            temp_list.pop(i - 1)
+            temp_list.pop(i - 1)
+            temp_list.insert(i - 1, c)
+            i -= 1
+        i += 1
+    return temp_list[0]
 
 
 def handle_input_poly(x):
