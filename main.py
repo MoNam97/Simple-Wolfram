@@ -16,6 +16,8 @@ def show_main_menu():
     print()
     print(tabulate(table, headers=headers))
 
+def print_error(message):
+    print("ERROR:", message)
 
 def power(x: int, y: list):
     for number in y:
@@ -67,6 +69,9 @@ def get_numbers():
     nums = []
     next_num = input()
     while next_num != '':
+        if not next_num.isnumeric():
+            print_error("Invalid input, Operation aborted!")
+            return []
         nums.append(float(next_num))
         next_num = input()
     return nums
