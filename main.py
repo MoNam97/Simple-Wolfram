@@ -1,7 +1,9 @@
 from tabulate import tabulate
+import re
 
 state = 'MAIN'
 calc_value = 0
+expression = []
 
 # [ ] TODO: Debug the UI concerning empty lines
 # [ ] TODO: make the input taking format consistent
@@ -31,7 +33,7 @@ def power(x: int, y: list):
 
 def root(x: int, y: list):
     for number in y:
-        x **= 1/number
+        x **= 1 / number
     return x
 
 
@@ -57,13 +59,13 @@ def show_calc_menu():
 def show_poly_menu():
     table = []
     headers = ["ID", "Command"]
-    table.append(["1"] + [""])
-    table.append([""] + [""])
+    table.append(["1"] + ["Enter Expression"])
+    table.append(["2"] + ["Compute at Specific Point"])
     table.append(["0"] + ["BACK"])
     print("===================================")
     print("Polynomial Menu:")
     print()
-    print("Current Expression:")
+    print("Current Expression:", expression)
     print(tabulate(table, headers=headers))
 
 
@@ -154,11 +156,44 @@ def handle_input_calc(x):
         reset()
 
 
+def validate_expression(x):
+    x = x.split(' ')
+    temp_lst = []
+    for t in x:
+        if x != '':
+            temp_lst.append(t)
+
+    num_regex = '([-+])?\\d+(\\.\\d+)?'
+    operator_regex = '[+-/*\\^]'
+    s = 0
+    for i in range(len(temp_lst)):
+        w = temp_lst[i]
+        if s == 0:
+            match = re.fullmatch(num_regex, w)
+            if match is None:
+                print_error("Invalid Input!")
+                return None
+            temp_lst[i] = float(match.group(0))
+            s = 1
+        elif s == 1:
+            match = re.fullmatch(operator_regex, w)
+            if match is None:
+                print_error("Invalid Input!")
+                return None
+            s = 0
+        else:
+            print_error('Invalid Input!')
+            return None
+    print(temp_lst)
+
+
 def handle_input_poly(x):
-    global calc_value
+    global calc_value, state, expression
     if x == '0':
-        global state
         state = 'MAIN'
+    if x == '1':
+        temp_exp = input()
+        validate_expression(temp_exp)
 
 
 def handle_input(x):
