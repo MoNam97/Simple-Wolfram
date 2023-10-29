@@ -173,6 +173,7 @@ def validate_expression(x):
     num_regex = '([-+])?\\d+(\\.\\d+)?'
     operator_regex = '[+-/*\\^]'
     s = 0
+    print(temp_lst)
     for i in range(len(temp_lst)):
         w = temp_lst[i]
         if s == 0:
@@ -192,7 +193,34 @@ def validate_expression(x):
         else:
             print_error('Invalid Input!')
             return None
-    return temp_lst
+    if s == 1:
+        return temp_lst
+    print_error('Invalid Input!')
+    return None
+
+
+def calculate_expr(x):
+    temp_list = []
+    for w in expression:
+        if w == 'x':
+            temp_list.append(x)
+        else:
+            temp_list.append(w)
+    s = temp_list[0]
+    for i in range(1, len(temp_list), 2):
+        w = temp_list[i]
+        if w == '+':
+            s += temp_list[i+1]
+        elif w == '-':
+            s -= temp_list[i + 1]
+        elif w == '/':
+            s /= temp_list[i + 1]
+        elif w == '*':
+            s *= temp_list[i + 1]
+        elif w == '^':
+            s **= temp_list[i+1]
+
+    return s
 
 
 def handle_input_poly(x):
@@ -204,6 +232,9 @@ def handle_input_poly(x):
         temp_exp = validate_expression(temp_exp)
         if temp_exp is not None:
             expression = temp_exp
+    if x == '2':
+        num = float(input())
+        print("Value:", calculate_expr(num))
 
 
 def handle_input(x):
