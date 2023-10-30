@@ -63,6 +63,41 @@
 (دبو)
 
 
+### 5. رفع merge conflic ها
 
- <!-- ![branch main secured 1](./Screenshots/main-branch-secured.PNG)
- ![branch main secured 2](./Screenshots/main-branch-secured1.PNG) -->
+در فرآیند توسعه پروژه در دو قسمت دچار conflict شدیم؛
+هم در یک شاخه و هم هنگام ادغام دو شاخه.
+
+در توسعه بخش اول در شاخه main، از آنجایی که هر دو عضو تیم در یک فایل کار می کردیم و غالبا مجبور به تغییر یک تابع بودیم، مثلا برای به روز کردن رابط کاربری، در مواردی به conflict برخوردیم. در این مواقع  با بررسی کد تصمیم متناسب را برای کد ادغام شده گرفتیم.
+
+در ادامه تصایری از یکی از این موارد آمده است:
+![merge conflict 1](./Screenshots/merge-conflict1.PNG)
+![merge conflict 2](./Screenshots/merge-conflict2.PNG)
+![merge conflict 3](./Screenshots/merge-conflict3.PNG)
+
+(دبو)
+
+
+در ادغام دو شاخه main و matrix_operations نیز با conflict مواجه شدیم. در این مورد ابتدا با بررسی کد تصمیم متناسب را برای کد ادغام در شاخه  matrix_operations گرفتیم؛ سپس با توجه به protected بودن شاخه main
+با ایجاد یک pull request آن را با شاخه اصلی ادغام کردیم.
+
+![branch merge conflict 1](./Screenshots/merge-conflict-f1.PNG)
+یکی از مصادیق conflict در ادغام کد:
+![branch merge conflict 2](./Screenshots/merge-conflict-f2.PNG)
+![branch merge conflict 3](./Screenshots/merge-conflict-f3.PNG)
+
+(دبو)
+
+### 6. اعمال محدودیت برای شاخه اصلی(main) و محافظت از آن
+
+همانطور که در کلاس هم گفته با رفتن در تنظیمات مخزن گیت هاب وارد قسمت Branches شده و برای شاخه اصلی(main) محدودیت ایجاد کردیم. این محدودیت به این صورت است که هر کامیتی که قرار است در شاخه اصلی انجام شود، باید حتما از یکی از شاخه های دیگر به صورت pull request ادغام شود.
+
+ ![branch main secured 1](./Screenshots/main-branch-secured.PNG)
+ ![branch main secured 2](./Screenshots/main-branch-secured1.PNG)
+
+ادغام کردن شاخه main با شاخه matrix_operations در گیت هاب:
+![branch merge 1](./Screenshots/merge-req.PNG)
+![branch merge 2](./Screenshots/merge-req2.PNG)
+![branch merge 3](./Screenshots/merge-req3.PNG)
+
+## پاسخ به سوالات
