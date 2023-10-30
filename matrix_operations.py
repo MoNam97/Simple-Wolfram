@@ -1,7 +1,6 @@
 from tabulate import tabulate
 import numpy as np
 
-# [ ] TODO: handle error messages printing
 
 def show_matrix(matrix):
     if matrix is not None:
@@ -23,7 +22,6 @@ def get_matrices(is_single_input_operator=False):
             except ValueError:
                 print("Invalid input. operation aborted!")
                 return []
-        # print(np.array(matrix))
         matrix_list.append(np.array(matrix))
         if is_single_input_operator:
             break
@@ -85,7 +83,6 @@ def show_matrix_menu():
     table = []
     headers = ['ID', 'Operation']
     table.append(["1"] + ["Add"])
-    # table.append(["2"] + ["Subtract"])
     table.append(["2"] + ["Multiply"])
     table.append(["3"] + ["Determinant"])
     table.append(["4"] + ["Inverse"])
@@ -94,5 +91,4 @@ def show_matrix_menu():
     print("===================================")
     print("Matrix Menu:")
     print()
-    # show_matrix(current_matrix)
     print(tabulate(table, headers=headers))

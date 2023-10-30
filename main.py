@@ -4,16 +4,12 @@ import matrix_operations as mo
 state = 'MAIN'
 calc_value = 0
 
-# [ ] TODO: Debug the UI concerning empty lines
-# [X] TODO: make the input taking format consistent
-
 
 def show_main_menu():
     table = []
     headers = ["ID", "Command"]
     table.append(["1"] + ["Calculation"])
     table.append(["2"] + ["Matrix Operations"])
-    # table.append([""] + [""])
     table.append(["0"] + ["Exit"])
     print()
     print(tabulate(table, headers=headers))
