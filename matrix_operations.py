@@ -1,8 +1,6 @@
 from tabulate import tabulate
 import numpy as np
 
-current_matrix = None
-
 # [ ] TODO: handle error messages printing
 
 def show_matrix(matrix):
@@ -35,9 +33,6 @@ def get_matrices(is_single_input_operator=False):
 
 
 def mat_add(matrix_list):
-    # global current_matrix
-    # if current_matrix is None:
-        # current_matrix = np.zeros(matrix_list[0].shape)
     result = np.zeros(matrix_list[0].shape)
     for matrix in matrix_list:
         if matrix.shape != result.shape:
@@ -54,13 +49,12 @@ def mat_subtract():
     pass
 
 def mat_multiply(matrix_list):
-    result = np.ones(matrix_list[0].shape)
-    show_matrix(result)
+    result = matrix_list.pop(0)
     for matrix in matrix_list:
         if matrix.shape[0] != result.shape[1]:
             print("Invalid matrix size. operation aborted!")
             return
-        result *= matrix
+        result = np.dot(result, matrix)
     print("Result")
     show_matrix(result)
     print()
