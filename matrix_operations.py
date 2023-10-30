@@ -33,6 +33,9 @@ def get_matrices(is_single_input_operator=False):
 
 
 def mat_add(matrix_list):
+    if matrix_list is None or len(matrix_list) == 0:
+        print("No matrix to add. operation aborted!")
+        return
     result = np.zeros(matrix_list[0].shape)
     for matrix in matrix_list:
         if matrix.shape != result.shape:
@@ -46,6 +49,9 @@ def mat_add(matrix_list):
 
 
 def mat_multiply(matrix_list):
+    if matrix_list is None or len(matrix_list) == 0:
+        print("No matrix to multiply. operation aborted!")
+        return
     result = matrix_list.pop(0)
     for matrix in matrix_list:
         if matrix.shape[0] != result.shape[1]:
@@ -58,13 +64,22 @@ def mat_multiply(matrix_list):
 
 
 def mat_determinant(matrix_list):
+    if matrix_list is None or len(matrix_list) == 0:
+        print("No matrix to calculate determinant. operation aborted!")
+        return
     result = np.linalg.det(matrix_list[0])
     print("Result")
     print(result)
     print()
 
-def mat_inverse():
-    pass
+def mat_inverse(matrix_list):
+    if matrix_list is None or len(matrix_list) == 0:
+        print("No matrix to calculate inverse. operation aborted!")
+        return
+    result = np.linalg.inv(matrix_list[0])
+    print("Result")
+    show_matrix(result)
+    print()    
 
 def show_matrix_menu():
     table = []
@@ -73,6 +88,7 @@ def show_matrix_menu():
     # table.append(["2"] + ["Subtract"])
     table.append(["2"] + ["Multiply"])
     table.append(["3"] + ["Determinant"])
+    table.append(["4"] + ["Inverse"])
     table.append([""] + [""])
     table.append(["0"] + ["BACK"])
     print("===================================")

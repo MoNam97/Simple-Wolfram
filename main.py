@@ -153,6 +153,9 @@ def handle_input_matrix(x):
     elif x == '3':
         matrix_list =  mo.get_matrices(True)
         mo.mat_determinant(matrix_list)
+    elif x == '4':
+        matrix_list =  mo.get_matrices(True)
+        mo.mat_inverse(matrix_list)
 
 
 def handle_input(x):
