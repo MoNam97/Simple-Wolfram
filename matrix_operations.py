@@ -53,8 +53,18 @@ def mat_add(matrix_list):
 def mat_subtract():
     pass
 
-def mat_multiply():
-    pass
+def mat_multiply(matrix_list):
+    result = np.ones(matrix_list[0].shape)
+    show_matrix(result)
+    for matrix in matrix_list:
+        if matrix.shape[0] != result.shape[1]:
+            print("Invalid matrix size. operation aborted!")
+            return
+        result *= matrix
+    print("Result")
+    show_matrix(result)
+    print()
+
 
 def mat_determinant():
     pass
@@ -66,6 +76,8 @@ def show_matrix_menu():
     table = []
     headers = ['ID', 'Operation']
     table.append(["1"] + ["Add"])
+    # table.append(["2"] + ["Subtract"])
+    table.append(["3"] + ["Multiply"])
     table.append([""] + [""])
     table.append(["0"] + ["BACK"])
     print("===================================")
