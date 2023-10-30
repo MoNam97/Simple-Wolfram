@@ -100,11 +100,19 @@ def handle_input_main(x):
         state = 'POLYNOMIAL'
 
 
+def is_float(string):
+    try:
+        float(string)
+        return True
+    except ValueError:
+        return False
+
+
 def get_numbers():
     nums = []
     next_num = input()
     while next_num != '':
-        if not next_num.isnumeric():
+        if not is_float(next_num):
             print_error("Invalid input, Operation aborted!")
             return []
         nums.append(float(next_num))
@@ -197,7 +205,6 @@ def validate_expression(x):
     num_regex = '([-+])?\\d+(\\.\\d+)?'
     operator_regex = '[+-/*\\^]'
     s = 0
-    print(temp_lst)
     for i in range(len(temp_lst)):
         w = temp_lst[i]
         if s == 0:
@@ -279,9 +286,10 @@ def calculate_expr(x):
 
 def plot(x1, x2):
     y = []
-    for t in np.arange(x1, x2, 0.1):
+    step = (x2 - x1) / 100
+    for t in np.arange(x1, x2, step):
         y.append(calculate_expr(t))
-    plt.plot(np.arange(x1, x2, 0.1).tolist(), y)
+    plt.plot(np.arange(x1, x2, step).tolist(), y)
     plt.show()
 
 
