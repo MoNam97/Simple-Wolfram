@@ -45,9 +45,6 @@ def mat_add(matrix_list):
     
 
 
-def mat_subtract():
-    pass
-
 def mat_multiply(matrix_list):
     result = matrix_list.pop(0)
     for matrix in matrix_list:
@@ -60,8 +57,11 @@ def mat_multiply(matrix_list):
     print()
 
 
-def mat_determinant():
-    pass
+def mat_determinant(matrix_list):
+    result = np.linalg.det(matrix_list[0])
+    print("Result")
+    print(result)
+    print()
 
 def mat_inverse():
     pass
@@ -71,7 +71,8 @@ def show_matrix_menu():
     headers = ['ID', 'Operation']
     table.append(["1"] + ["Add"])
     # table.append(["2"] + ["Subtract"])
-    table.append(["3"] + ["Multiply"])
+    table.append(["2"] + ["Multiply"])
+    table.append(["3"] + ["Determinant"])
     table.append([""] + [""])
     table.append(["0"] + ["BACK"])
     print("===================================")

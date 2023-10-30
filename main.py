@@ -147,9 +147,12 @@ def handle_input_matrix(x):
     elif x == '1':
         matrix_list =  mo.get_matrices(False)
         mo.mat_add(matrix_list)
-    elif x == '3':
+    elif x == '2':
         matrix_list =  mo.get_matrices(False)
         mo.mat_multiply(matrix_list)
+    elif x == '3':
+        matrix_list =  mo.get_matrices(True)
+        mo.mat_determinant(matrix_list)
 
 
 def handle_input(x):
