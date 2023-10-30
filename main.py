@@ -1,4 +1,5 @@
 from tabulate import tabulate
+import matrix_operations as mo
 import re
 import copy
 import matplotlib.pyplot as plt
@@ -8,17 +9,13 @@ state = 'MAIN'
 calc_value = 0
 expression = []
 
-# [ ] TODO: Debug the UI concerning empty lines
-# [ ] TODO: make the input taking format consistent
-
 
 def show_main_menu():
     table = []
     headers = ["ID", "Command"]
     table.append(["1"] + ["Calculation"])
+    table.append(["2"] + ["Matrix Operations"])
     table.append(["3"] + ["Polynomial Computation"])
-
-    # table.append([""] + [""])
     table.append(["0"] + ["Exit"])
     print()
     print(tabulate(table, headers=headers))
@@ -85,6 +82,8 @@ def show_menu():
         show_main_menu()
     elif state == 'CALCULATION':
         show_calc_menu()
+    elif state == 'MATRIX':
+        mo.show_matrix_menu()
     elif state == 'POLYNOMIAL':
         show_poly_menu()
 
@@ -95,6 +94,8 @@ def handle_input_main(x):
         exit()
     elif x == '1':
         state = 'CALCULATION'
+    elif x == '2':
+        state = 'MATRIX'
     elif x == '3':
         state = 'POLYNOMIAL'
 
@@ -165,6 +166,25 @@ def handle_input_calc(x):
         calc_value = root(calc_value, nums)
     elif x == 'R':
         reset()
+
+def handle_input_matrix(x):
+    if x == '0':
+        global state
+        state = 'MAIN'
+        print("===================================")
+        print("\t  Main Menu:")
+    elif x == '1':
+        matrix_list =  mo.get_matrices(False)
+        mo.mat_add(matrix_list)
+    elif x == '2':
+        matrix_list =  mo.get_matrices(False)
+        mo.mat_multiply(matrix_list)
+    elif x == '3':
+        matrix_list =  mo.get_matrices(True)
+        mo.mat_determinant(matrix_list)
+    elif x == '4':
+        matrix_list =  mo.get_matrices(True)
+        mo.mat_inverse(matrix_list)
 
 
 def validate_expression(x):
@@ -288,6 +308,8 @@ def handle_input(x):
         handle_input_main(x)
     elif state == 'CALCULATION':
         handle_input_calc(x)
+    elif state == 'MATRIX':
+        handle_input_matrix(x)
     elif state == 'POLYNOMIAL':
         handle_input_poly(x)
 
